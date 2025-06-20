@@ -46,10 +46,47 @@ const restaurant = {
   },
 
   order: function(starterIndex,mainIndex){
+    console.log(this.starterMenu[starterIndex], this.mainMenu[mainIndex]);
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]
+
+  },
+  // Down below I have passed a single object from line 70 to 73. Which means passing an object as an argument to a function which does the destructuring.
+  // order of the parameters doesn't matter
+  orderDelivery: function({ address, mainIndex = 0, starterIndex = 1, time = '20:00'}){
+    console.log(`order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`);
+  },
+
+  showFriSchedule: function({time, driver, paymentMethod}){
+    console.log(`here is the friday delivery schedule:
+    ${driver} will be within your location by ${time}.
+    Please bring your ${paymentMethod} with you to make it smooth`);
+
   }
 
 };
+
+
+// first object to be passed
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del Sole, 21',
+  mainIndex: 2,
+  starterIndex: 2
+});
+// second object to be passed
+restaurant.orderDelivery({
+  address: 'Via del Sole, 21',
+  starterIndex: 1,
+})
+
+restaurant.showFriSchedule({
+  time: '12:00',
+  driver: 'Jacob',
+  paymentMethod: 'debit card',
+  address: "to be confirmed"
+})
+
+
 
 // ------------------------------------------------------------- destructuring Arrays ------------------------
 
@@ -82,6 +119,16 @@ console.log(restaurant.order(0, 1));
 //since an array is returned then we can destruct it. see the following:
 let [starter, mainCourse] = restaurant.order(0, 1);
 console.log(starter, mainCourse);
+
+console.log(restaurant.order(0,0));
+
+console.log(`interpolation result: ${restaurant.order(0, 2)}`);
+console.log(typeof `${restaurant.order(0,2)}`);
+
+// Receive 2 return values from a function
+
+const [starter, main] = restaurant.order(2,0);
+console.log(starter, main);
 
 */
 
@@ -120,3 +167,71 @@ console.log(starter, mainCourse);
 // const [fiveStarRatings, oneStarRatings, threeStarRatings=0] = ratingStars;
 // console.log(fiveStarRatings, oneStarRatings, threeStarRatings);
 
+// ------------------------------------------------------------- destructuring Objects ------------------------
+/*
+1. how is it done?
+destruct the restaurant.
+*/
+
+// const {name, categories, openingHours} = restaurant;
+// console.log(name, categories, openingHours);
+
+/*
+2. how to change the attribute names with the original ones?
+*/
+// const {name: restaurantName, categories: tag, openingHours: hours} = restaurant;
+// console.log(restaurantName, tag, hours);
+
+
+/*
+3. setting default values.
+in case of working with APIs when we wanna fetch data that are nor clear how the structure of the content is then we might need to set default values.
+so lets say the restaurant doesn't have any attribute called `menu` if i wanna deconstruct it then we need to set a default value while deconstructing! otherwise we get undefined!
+*/
+// const {menu = [], categories: tag, openingHours: hours} = restaurant;
+// console.log(menu,  tag, hours);
+// const {menu = [], categories: tag, openingHours: hours, startersMenu : starters = []} =restaurant
+// console.log(menu, tag, hours, starters);
+
+// ------------------------------------------------------------- Mutating Objects' variables ------------------------
+/*
+let a = 111;
+let b = 999;
+const obj = {a:23, b: 7, c: 14};
+({a, b} = obj)
+console.log(a, b);
+*/
+// ------------------------------------------------------------- Nested Objects--------------------------------------
+/*
+const {fri} = restaurant.openingHours
+console.log(fri);
+
+const {fri: {open, close}} = restaurant.openingHours
+console.log(open, close);
+
+// // we can even take it further and rename the open and close
+
+const {fri: {open: o, close: c}} = restaurant.openingHours
+console.log(o, c);
+*/
+
+
+
+// Extract some data using regular destructuring ✅
+const booking = {
+  destination: 'Rome',
+  guestName: 'Pezhman',
+  date: '2025-08-10',
+  paid: true
+}
+const {destination,  guestName} = booking;
+console.log(destination, guestName);
+
+// Pass that data into a method using parameter destructuring ✅
+const travelAgency = {
+  confirmBooking: function({guestName, destination, date}){
+    console.log(`Booking confirmed for ${guestName} to ${destination} on ${date}.`);
+  }
+}
+
+travelAgency.confirmBooking(booking);
