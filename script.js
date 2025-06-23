@@ -59,12 +59,21 @@ const restaurant = {
   showFriSchedule: function({time, driver, paymentMethod}){
     console.log(`here is the friday delivery schedule:
     ${driver} will be within your location by ${time}.
-    Please bring your ${paymentMethod} with you to make it smooth`);
+    Please bring your ${paymentMethod} with you to make it smooth`)
+  },
 
+
+
+
+
+  // for spread operator
+  orderPasta: function(ing1, ing2, ing3){
+    console.log(`here is your pasta made with ${ing1}, ${ing2}, ${ing3}`);
   }
 
 };
 
+/*
 
 // first object to be passed
 restaurant.orderDelivery({
@@ -86,7 +95,7 @@ restaurant.showFriSchedule({
   address: "to be confirmed"
 })
 
-
+*/
 
 // ------------------------------------------------------------- destructuring Arrays ------------------------
 
@@ -215,7 +224,7 @@ const {fri: {open: o, close: c}} = restaurant.openingHours
 console.log(o, c);
 */
 
-
+/*
 
 // Extract some data using regular destructuring ✅
 const booking = {
@@ -235,3 +244,71 @@ const travelAgency = {
 }
 
 travelAgency.confirmBooking(booking);
+
+*/
+
+// ----------------------------------------------------- 111. The Spread Operator (...)
+
+
+/*
+
+//------------------- 1st use case: extracting elements from an array:
+
+const arr = [1, 2, 3];
+const newArr = [...arr, 4, 5];
+console.log(...arr);
+console.log(...newArr);
+
+
+//---------------------- 2nd use case: passing elements to a function:
+
+// we are making a new array down below:
+const newMenu = [...restaurant.mainMenu, 'Khuresht'];
+console.log(newMenu);
+// if we want just want the elements individually:
+console.log(...newMenu);
+
+// 3rd. Shallow Copy of an array:
+
+const copyArr = [...arr];
+console.log(copyArr);
+
+// 4th: join 2 arrays together:
+const joinedArr = [...newArr, ...newMenu];
+console.log(joinedArr);
+
+// iterables: Spread operator works on strings, arrays, maps, sets BUT NOT objects
+
+const str = 'Jonas';
+console.log(...str);
+// doesn't work on template literals as template literals doesn't accept elements seperated with comma because it is NOT a function!
+// it is only doable when we pass the elements to a function. remeber the use case 2 of template literals? tnx
+// --------------------console.log(`${...str}`);
+
+const letters = [...str, ' ', 'S'];
+console.log(letters);
+console.log(...letters);
+
+// real-world example:
+
+const ingredients = [
+  // prompt('ingredient1:'),
+  // prompt('ingredient2:'),
+  // prompt('ingredient3:'),
+]
+console.log(...ingredients);
+
+restaurant.orderPasta(...ingredients)
+
+
+// --------------------------------------------------------------------- spread operators for objects
+
+const newRestaurant = {foundedIn: 1998, ...restaurant, founder: "Guiseppe"}
+console.log(newRestaurant);
+
+// shallow copy of object:
+const restaurantCopy = {...restaurant};
+restaurantCopy.name = 'Ristorante Roma';
+console.log(restaurantCopy.name);
+console.log(restaurant.name);
+*/
