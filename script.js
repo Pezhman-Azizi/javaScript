@@ -62,15 +62,15 @@ const restaurant = {
     Please bring your ${paymentMethod} with you to make it smooth`)
   },
 
-
-
-
-
   // for spread operator
   orderPasta: function(ing1, ing2, ing3){
     console.log(`here is your pasta made with ${ing1}, ${ing2}, ${ing3}`);
+  },
+  // for rest operator
+  orderPizza: function(mainIngredient, ...otherIngredients){
+    console.log(mainIngredient);
+    console.log(otherIngredients);
   }
-
 };
 
 /*
@@ -247,20 +247,17 @@ travelAgency.confirmBooking(booking);
 
 */
 
-// ----------------------------------------------------- 111. The Spread Operator (...)
+// ----------------------------------------------------- 111. The Spread Operator (...) ----------------------------------------------------
 
 
 /*
 
-//------------------- 1st use case: extracting elements from an array:
+//---------------------------------------------- 1st use case: extracting elements from an array:
 
 const arr = [1, 2, 3];
 const newArr = [...arr, 4, 5];
 console.log(...arr);
 console.log(...newArr);
-
-
-//---------------------- 2nd use case: passing elements to a function:
 
 // we are making a new array down below:
 const newMenu = [...restaurant.mainMenu, 'Khuresht'];
@@ -268,27 +265,7 @@ console.log(newMenu);
 // if we want just want the elements individually:
 console.log(...newMenu);
 
-// 3rd. Shallow Copy of an array:
-
-const copyArr = [...arr];
-console.log(copyArr);
-
-// 4th: join 2 arrays together:
-const joinedArr = [...newArr, ...newMenu];
-console.log(joinedArr);
-
-// iterables: Spread operator works on strings, arrays, maps, sets BUT NOT objects
-
-const str = 'Jonas';
-console.log(...str);
-// doesn't work on template literals as template literals doesn't accept elements seperated with comma because it is NOT a function!
-// it is only doable when we pass the elements to a function. remeber the use case 2 of template literals? tnx
-// --------------------console.log(`${...str}`);
-
-const letters = [...str, ' ', 'S'];
-console.log(letters);
-console.log(...letters);
-
+//---------------------------------------------- 2nd use case: passing elements to a function:
 // real-world example:
 
 const ingredients = [
@@ -297,11 +274,30 @@ const ingredients = [
   // prompt('ingredient3:'),
 ]
 console.log(...ingredients);
-
 restaurant.orderPasta(...ingredients)
 
+//---------------------------------------------- 3rd. Shallow Copy of an array:
 
-// --------------------------------------------------------------------- spread operators for objects
+const copyArr = [...arr];
+console.log(copyArr);
+
+//---------------------------------------------- 4th: join 2 arrays together:
+const joinedArr = [...newArr, ...newMenu];
+console.log(joinedArr);
+
+// iterables: Spread operator works on strings, arrays, maps, sets BUT NOT objects
+
+const str = 'Jonas';
+console.log(...str);
+// doesn't work on template literals as template literals doesn't accept elements seperated with comma because it is NOT a function!
+// it is only doable when we pass the elements to a function. remember the use case 2 of template literals? tnx
+// --------------------console.log(`${...str}`);
+
+const letters = [...str, ' ', 'S'];
+console.log(letters);
+console.log(...letters);
+
+// ------------------------------------ spread operators for objects
 
 const newRestaurant = {foundedIn: 1998, ...restaurant, founder: "Guiseppe"}
 console.log(newRestaurant);
@@ -312,3 +308,53 @@ restaurantCopy.name = 'Ristorante Roma';
 console.log(restaurantCopy.name);
 console.log(restaurant.name);
 */
+
+
+// ---------------------------------------------------------------------- Rest Pattern and Parameters
+
+// 1) ------------------------------------------------------- Destructuring
+// ------------------------------------------- Rest for arrays:
+
+
+// SPREAD: cuz it is on the RIHGT side of =
+const arr = [1, 2, ...[3,4]];
+
+// REST: cuz it is on the LEFT side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
+
+const [pizza, ,risotto, ...otherFood] = [...restaurant.mainMenu, ...restaurant.starterMenu]
+console.log(pizza, risotto, otherFood);
+
+
+// ------------------------------------------ Rest for objects:
+
+const {sat, ...weekdays} = restaurant.openingHours
+console.log(sat, weekdays);
+
+
+// 2) ------------------------------------------------------- Functions
+
+
+// rest => variable names seperated by commas.
+// spread => values seperated by comma!
+
+
+// -------------------------------------------------------
+
+const add = function(...numbers){
+  let sum = 0;
+  for (const number of numbers){
+    sum+=number;
+  }
+  console.log(sum);
+}
+add(1,2,3);
+add(4,5,6,7)
+
+const x = [23, 5, 7];
+add(...x);
+
+// -------------------------------------------------------restaurant object and rest method:
+
+restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach')
