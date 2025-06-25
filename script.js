@@ -312,6 +312,9 @@ console.log(restaurant.name);
 
 // ---------------------------------------------------------------------- Rest Pattern and Parameters
 
+
+/*
+
 // 1) ------------------------------------------------------- Destructuring
 // ------------------------------------------- Rest for arrays:
 
@@ -358,3 +361,46 @@ add(...x);
 // -------------------------------------------------------restaurant object and rest method:
 
 restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach')
+
+*/
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------113. Short Circuiting (&& and ||)
+
+// logical operators can 1. Use Any data Type 2.Return any data types 3. Short-Circuiting (short-circuit evaluation)
+
+// --------------------------------------------- OR operator
+// Short circuit for OR operator: it returns the first operand if the first (left) one is truthy without evaluating the rest of operands. Otherwise it returns th second one!
+console.log("Short circuit for OR operator");
+
+console.log( 3 || 'Jonas');
+console.log( '' || 'Jonas');
+console.log( true || 0);
+console.log( undefined || null);
+console.log(undefined || null || 0 || '' || null || 'hello' || 23 || null);
+
+// using turnery operator:
+restaurant.numGuests = 23;
+const guest1 = restaurant.numGuests ? restaurant.numGuests : 16;
+console.log(guest1);
+
+// using short circuiting:
+const guest2 = restaurant.numGuests || 10
+console.log(guest2);
+
+// --------------------------------------------- AND operator
+console.log("Short circuit for AND operator");
+// Short circuit for AND operator: it returns the first operand if the first (left) one is falsy without evaluating the rest of operands.
+console.log( 0 && 'jonas');
+console.log( 7 && 'jonas');
+console.log( null && undefined);
+
+console.log('Hello' && '23' && null && 'jonas');
+
+// real-life example:
+
+if(restaurant.orderPizza){
+  restaurant.orderPizza('mushroom', 'spinach');
+}
+
+restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
