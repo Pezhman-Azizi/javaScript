@@ -367,6 +367,9 @@ restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach')
 
 // --------------------------------------------------------------------------------------------------------------------------------------------113. Short Circuiting (&& and ||)
 
+
+/*
+
 // logical operators can 1. Use Any data Type 2.Return any data types 3. Short-Circuiting (short-circuit evaluation)
 
 // --------------------------------------------- OR operator
@@ -404,3 +407,19 @@ if(restaurant.orderPizza){
 }
 
 restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
+
+*/
+
+// --------------------------------------------------------------------------------------------------------------------------------------------114. The Nullish Coalescing Operator (??)
+
+// Nullish: null and undefined (NOT 0 or ' '):
+// nullish operator : ??
+
+restaurant.numberGuest = 0;
+// const numberGuest= restaurant.numberGuest ? restaurant.numberGuest : 10;
+const guest = restaurant.numberGuest || 12;
+console.log(guest);
+
+
+const guestCorrect = restaurant.numberGuest ?? 1;
+console.log(guestCorrect);
