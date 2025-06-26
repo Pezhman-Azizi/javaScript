@@ -392,6 +392,8 @@ const guest2 = restaurant.numGuests || 10
 console.log(guest2);
 
 // --------------------------------------------- AND operator
+
+
 console.log("Short circuit for AND operator");
 // Short circuit for AND operator: it returns the first operand if the first (left) one is falsy without evaluating the rest of operands.
 console.log( 0 && 'jonas');
@@ -407,11 +409,10 @@ if(restaurant.orderPizza){
 }
 
 restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
-
 */
 
 // --------------------------------------------------------------------------------------------------------------------------------------------114. The Nullish Coalescing Operator (??)
-
+/*
 // Nullish: null and undefined (NOT 0 or ' '):
 // nullish operator : ??
 
@@ -423,3 +424,78 @@ console.log(guest);
 
 const guestCorrect = restaurant.numberGuest ?? 1;
 console.log(guestCorrect);
+
+*/
+
+// --------------------------------------------------------------------------------------------------------------------------------------------115. Logical Assignment Operators
+
+// OR assignment operator:
+
+const rest1 = {
+  name: 'Capri',
+  numGuest: 20
+}
+
+const rest2 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi'
+}
+
+rest1.numGuest = rest1.numGuest || 10;
+console.log(rest1.numGuest);
+
+// now we wanna set a default property for an object that doesn't have that particular property!
+
+rest2.numGuest = rest2.numGuest || 10;
+console.log(rest2.numGuest);
+console.log(rest2);
+
+
+// --------------------------------------------------------------- OR assignment operator
+// For OR assignment: we often here if we wanna assign a value to a variable if the variable is falsy
+// shorter and cleaner way is as follows:
+rest2.numGuest ||= 10;
+console.log(rest2.numGuest);
+
+// Now if the number od guests is zero, then since zero is a falsy value then with or operator it gets short circuited.
+// But with ?? (nullish operator) we can solve it.
+
+// so lets see
+
+const rest3 = {
+  name: 'La Piazza',
+  owner: 'Giovanni Rossi',
+  numGuest: 0
+}
+
+// rest3.numGuest ||= 10;
+// console.log(rest3.numGuest);
+
+//  as you see the numGuest in rest3 in 0 but when we log the property it is 10!!!
+
+// so here is how to fix it using nullish operator(??):
+
+// --------------------------------------------------------------- Nullish (null or undefined) assignment operator
+
+rest3.numGuest = rest3.numGuest ?? 20;
+console.log(rest3.numGuest);
+//  cleaner way:
+rest3.numGuest ??= 2;
+console.log(rest3.numGuest);
+
+//  Now the log shows the actual number which zero guest.
+
+// --------------------------------------------------------------- AND assignment operator
+
+// For AND assignment: we often here if we wanna assign a value to a variable if the variable is truthy.
+
+// rest2.owner = rest2.owner && 'Anonymus';
+// console.log(rest2);
+// shorter way:
+rest2.owner &&= 'Anonymus';
+console.log(rest2);
+
+// And if a property doesn't exist then we can use && operator:
+rest1.owner &&= 'Anonymus'
+console.log(rest1.owner);
+
