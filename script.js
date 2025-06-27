@@ -428,7 +428,7 @@ console.log(guestCorrect);
 */
 
 // --------------------------------------------------------------------------------------------------------------------------------------------115. Logical Assignment Operators
-
+/*
 // OR assignment operator:
 
 const rest1 = {
@@ -499,9 +499,9 @@ console.log(rest2);
 rest1.owner &&= 'Anonymus'
 console.log(rest1.owner);
 
-
+*/
 // --------------------------------------------------------------------------------------------------------------------------------------------116. Challenge 1:
-
+/*
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -545,10 +545,9 @@ const game = {
 
   printGoals: function (...players){
 
-    // for(let i = 0; i < players.length; i++){
-    //     console.log(`${players[i]}`);
-    //   }
-      console.log(`with the total score of ${this.scored.length}`);
+    for(let i = 0; i < players.length; i++){
+        console.log(`${players[i]}`);
+      }
       console.log(`with the total score of ${players.length}`);
   }
 };
@@ -590,10 +589,27 @@ const {team1, x: draw, team2} = game.odds;
 console.log(team1, draw ,team2);
 
 // 6. Write a function ('printGoals') that receives an arbitrary number of player names (not an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
-game.printGoals('Lewandowski', 'Gnarby', 'Lewandowski','Hummels', "Tony")
+
+console.log('here is th esolution to number 6:');
+
+game.printGoals('Lewandowski', 'Gnarby', 'Lewandowski','Hummels', "Tony");
+game.printGoals(game.scored);
 
 
 // 7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, without using an if/else statement or the ternary operator.
 
-team2>team1 && console.log('team 1 in more likely to win');
-team1>team2 && console.log('team 2 in more likely to win');
+team2>team1 && console.log('team 1 is more likely to win');
+team1>team2 && console.log('team 2 is more likely to win');
+
+*/
+// --------------------------------------------------------------------------------------------------------------------------------------------117. Looping Arrays: The for-of Loop:
+
+/*
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
+
+// for (const [i, element] of menu.entries()) console.log(`${i+1}: ${element}`);
+
+for (const item of menu.entries()) console.log(item);
+
+*/
