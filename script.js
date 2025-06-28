@@ -24,7 +24,7 @@ const mexicanFoods = new Set([
 
 const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-const hours = {
+const openingHours = {
     [weekdays[3]]: {
       open: 12,
       close: 22,
@@ -33,7 +33,7 @@ const hours = {
       open: 11,
       close: 23,
     },
-    [`day-${2+4}`]: {
+    [weekdays[5]]: {
       open: 0, // Open 24 hours
       close: 24,
     },
@@ -49,7 +49,7 @@ const restaurant = {
 
   // ES6 enhances object literals
 
-  hours,
+  openingHours,
 
   order(starterIndex,mainIndex){
     console.log(this.starterMenu[starterIndex], this.mainMenu[mainIndex]);
@@ -619,7 +619,34 @@ for (const item of menu.entries()) console.log(item);
 
 */
 
-// --------------------------------------------------------------------------------------------------------------------------------------------118. Enhanced Object literals
+// --------------------------------------------------------------------------------------------------------------------------------------------118. Enhanced Object literals:
 
 // see the changes in restaurant object ;)
 
+// --------------------------------------------------------------------------------------------------------------------------------------------119. Optional Chaining(?.):
+
+if (restaurant.openingHours && restaurant.openingHours.mon)
+console.log(restaurant.openingHours.mon);
+
+// console.log(restaurant.openingHours.mon.open);
+
+// With optional chaining:
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+
+// Example:
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days){
+  // console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`the restaurant opens on ${day} at ${open}`);
+}
+
+// Methods:
+console.log(restaurant.order?.(0,1) ?? 'Method does not exist');
+console.log(restaurant.orderRisotto?.(0,1) ?? 'Method does not exist');
+
+// Arrays:
+const users = [{name: 'Jonas', email:'hello@jonas.io'}]
+console.log(users[0]?.name ?? 'There is no name');
