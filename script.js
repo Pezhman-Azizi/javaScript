@@ -22,6 +22,23 @@ const mexicanFoods = new Set([
   'garlic',
 ]);
 
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const hours = {
+    [weekdays[3]]: {
+      open: 12,
+      close: 22,
+    },
+    [weekdays[4]]: {
+      open: 11,
+      close: 23,
+    },
+    [`day-${2+4}`]: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  }
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -30,44 +47,32 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+  // ES6 enhances object literals
 
-  order: function(starterIndex,mainIndex){
+  hours,
+
+  order(starterIndex,mainIndex){
     console.log(this.starterMenu[starterIndex], this.mainMenu[mainIndex]);
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]
-
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
   // Down below I have passed a single object from line 70 to 73. Which means passing an object as an argument to a function which does the destructuring.
   // order of the parameters doesn't matter
-  orderDelivery: function({ address, mainIndex = 0, starterIndex = 1, time = '20:00'}){
+  orderDelivery({ address, mainIndex = 0, starterIndex = 1, time = '20:00'}){
     console.log(`order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`);
   },
 
-  showFriSchedule: function({time, driver, paymentMethod}){
+  showFriSchedule({time, driver, paymentMethod}){
     console.log(`here is the friday delivery schedule:
     ${driver} will be within your location by ${time}.
     Please bring your ${paymentMethod} with you to make it smooth`)
   },
 
   // for spread operator
-  orderPasta: function(ing1, ing2, ing3){
+  orderPasta(ing1, ing2, ing3){
     console.log(`here is your pasta made with ${ing1}, ${ing2}, ${ing3}`);
   },
   // for rest operator
-  orderPizza: function(mainIngredient, ...otherIngredients){
+  orderPizza(mainIngredient, ...otherIngredients){
     console.log(mainIngredient);
     console.log(otherIngredients);
   }
@@ -613,3 +618,8 @@ console.log(menu);
 for (const item of menu.entries()) console.log(item);
 
 */
+
+// --------------------------------------------------------------------------------------------------------------------------------------------118. Enhanced Object literals
+
+// see the changes in restaurant object ;)
+
