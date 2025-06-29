@@ -624,7 +624,7 @@ for (const item of menu.entries()) console.log(item);
 // see the changes in restaurant object ;)
 
 // --------------------------------------------------------------------------------------------------------------------------------------------119. Optional Chaining(?.):
-
+/*
 if (restaurant.openingHours && restaurant.openingHours.mon)
 console.log(restaurant.openingHours.mon);
 
@@ -650,3 +650,31 @@ console.log(restaurant.orderRisotto?.(0,1) ?? 'Method does not exist');
 // Arrays:
 const users = [{name: 'Jonas', email:'hello@jonas.io'}]
 console.log(users[0]?.name ?? 'There is no name');
+*/
+
+// --------------------------------------------------------------------------------------------------------------------------------------------120.  Looping Objects: Object Keys, Values, and Entries
+
+// Property Names:
+const properties = Object.keys(openingHours)
+console.log(properties);
+
+let openStr = `we are open on ${properties.length} days:`;
+
+for (const day of properties){
+  console.log(day);
+  openStr += `${day} ,`;
+}
+console.log(openStr);
+
+// Property values:
+const values = Object.values(openingHours)
+console.log(values);
+
+//  Entries object
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [day, {open, close}] of entries){
+  // console.log(day);
+  console.log(`on ${day} we open at ${open} and we close at ${close}`);
+}
