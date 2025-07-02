@@ -791,4 +791,70 @@ for (let i = 0; i < game.scored.length; i++){
 */
 
 // --------------------------------------------------------------------------------------------------------------------------------------------122. Sets
+// set is a unique collection of values. lets create one.
+// way to create it is to write `new Set()` and pass in an iterable like array or string (a bit further down;))
+const ordersSet = new Set([
+  'Pasta',
+  'Pizza',
+  'Pizza',
+  'Risotto',
+  'Pasta',
+  'Pizza',
+]);
+/*
+console.log(ordersSet);
+console.log(typeof ordersSet);
+// sets look like arrays but they don't have the order of elements and elements are unique.
 
+// we can pass string(cuz they are iterables).
+console.log(new Set('jonas'));
+console.log(new Set('jonassss'));
+
+//  you can pass empty value to sets as well
+console.log(new Set());
+
+//////////////////////How to work with sets:
+
+// 1. size: number of unique different values:
+console.log(ordersSet.size);
+
+// 2. check if a certain value is in the set:(Case sensitive)
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('pizza'));
+console.log(ordersSet.has('Bread'));
+
+// 3. add new elements
+console.log(ordersSet.add('Garlic Bread'));
+
+// 4. deleting elements:
+console.log(ordersSet.delete('Risotto'));
+
+ordersSet.delete('Risotto')
+console.log(ordersSet);
+  // Note: .add() returns the updated Set itself (so we can chain),
+  // but .delete() returns a boolean (true if deleted, false if not found).
+  // So to see the updated Set after deletion, use console.log(ordersSet) separately.
+
+// 5. Since sets don't have indexes we can't get the data retrieved from the set
+
+console.log(ordersSet[0]); //undefined
+
+// 6. deleting all the elements from the set:
+ordersSet.clear()
+console.log(ordersSet); //empty set
+
+// . since sets are iterable we can loop over them:
+for (const order of ordersSet) console.log(order);
+
+
+//////////// Example use case:
+// we want to have an array without any duplicate values.
+const staff = ['waiter', 'chef', 'waiter', 'manger', 'chef', 'waiter'];
+// we need to create a set.
+const staffUnique = new Set(staff)
+console.log(staffUnique);
+// convert the set to an array. cuz remember set are NOT arrays:
+// Previously we learned that we can use spread operators over iterables and sets are iterables so we can use spread operators
+const staffUniqueArray = [...new Set(staff)]
+console.log(staffUniqueArray);
+*/
