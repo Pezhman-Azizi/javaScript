@@ -1,26 +1,13 @@
 'use strict';
+// Add custom method to Set prototype
+// Set.prototype.intersection = function (otherSet) {
+//   return new Set([...this].filter(el => otherSet.has(el)));
+// };
+
 
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
-
-const italianFoods = new Set([
-  'pasta',
-  'gnocchi',
-  'tomatoes',
-  'olive oil',
-  'garlic',
-  'basil',
-]);
-
-const mexicanFoods = new Set([
-  'tortillas',
-  'beans',
-  'rice',
-  'tomatoes',
-  'avocado',
-  'garlic',
-]);
 
 const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
@@ -858,3 +845,45 @@ console.log(staffUnique);
 const staffUniqueArray = [...new Set(staff)]
 console.log(staffUniqueArray);
 */
+
+// -------------------------------------------------------------------------------------------------------------------------------------------- 123. New Operations to Make Sets Useful!
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+// 1. intersection:
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log('intersection:',[...commonFoods]);
+
+// 2. union: mixes two sets and return only unique values:
+const italianMexicanFusion = italianFoods.union(mexicanFoods)
+console.log('union:', italianMexicanFusion);
+
+// 3. difference: finds the unique ones on the first set that we call the method upon
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log(uniqueItalianFoods);
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log(uniqueMexicanFoods);
+
+
+// 4. returns the unique elements on each and combins them two together
+const uniqueItalianAndMexicanFoods = italianFoods.symmetricDifference(mexicanFoods);
+console.log(uniqueItalianAndMexicanFoods);
+
+// 5. checks wether if they are totally different sets:
+console.log(italianFoods.isDisjointFrom(mexicanFoods));
