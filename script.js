@@ -847,6 +847,7 @@ console.log(staffUniqueArray);
 */
 
 // -------------------------------------------------------------------------------------------------------------------------------------------- 123. New Operations to Make Sets Useful!
+/*
 const italianFoods = new Set([
   'pasta',
   'gnocchi',
@@ -887,3 +888,82 @@ console.log(uniqueItalianAndMexicanFoods);
 
 // 5. checks wether if they are totally different sets:
 console.log(italianFoods.isDisjointFrom(mexicanFoods));
+*/
+// -------------------------------------------------------------------------------------------------------------------------------------------- 124. Map fundamentals
+
+const mapped = new Map();
+// 1.Set (modifying and returning the out put is the nature of set):
+
+mapped.set('name', 'Portofino');
+mapped.set(1, 'Hanley City Center');
+mapped.set(2, 'Soho,London');
+// calling the set method returns the updated map instead of just updating it.
+// we can also chain the keys to the map:
+mapped
+.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+.set('open', 11)
+.set('close', 23)
+.set(true, 'we are open')
+.set(false, 'we are closed')
+
+console.log(mapped);
+/*
+// 2. Get method: to read the data from the map:
+
+console.log(mapped.get('name'));
+console.log(mapped.get(true)); //data type we pass to get really matters.
+
+const time = 21;
+console.log(mapped.get(time > mapped.get('open') && time > mapped.get('close')));
+
+// 3. has method
+console.log(mapped.has('categories'));
+
+// 4. delete: slow and not encouraged :)
+mapped.delete(2)
+console.log(mapped);
+
+// 5. size
+console.log(mapped.size);
+
+// 6. remove all the elements
+mapped.clear();
+console.log(mapped.clear());
+
+// note: lets create a object key (data type of the key is object) and set it to Map:
+
+mapped.set([1,2], 'test')
+console.log(mapped.get([1,2])); // undefined: why?
+
+// Reason being that is those arrays point to a different place in memory heap although they identically look the same.
+// What we need to do is to set the array value in a variable and use it in get method as follows:
+*/
+
+const arr = [1,2];
+//  We added it and we logged it to the console:
+console.log(mapped.set(arr, 'test'));
+
+console.log(mapped.get(arr));
+
+// cool feature: based on the previous note, we could set object keys, right? Now we can use DOM.
+// DOM objects are also a special type of objects so we can set DOM objects as keys:
+
+/*
+      mapped
+        .set(document.querySelector('h1'), 'heading')
+        .set(document.querySelector('h1').innerHTML, 'hey ya')
+
+        console.log(mapped);
+
+*/
+
+
+// this ain't change any text in the page, cuz set just store the key/value pairs:
+// what we can do instead is to get access to that key/value pair and then change em.
+
+const h1 = document.querySelector('h1');
+mapped.set(h1, 'hey ya')
+h1.innerHTML = mapped.get(h1)
+
+console.log(mapped);
+// now the text has changed. 
