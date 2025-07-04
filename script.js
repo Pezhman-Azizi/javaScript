@@ -890,7 +890,7 @@ console.log(uniqueItalianAndMexicanFoods);
 console.log(italianFoods.isDisjointFrom(mexicanFoods));
 */
 // -------------------------------------------------------------------------------------------------------------------------------------------- 124. Map fundamentals
-
+/*
 const mapped = new Map();
 // 1.Set (modifying and returning the out put is the nature of set):
 
@@ -907,7 +907,7 @@ mapped
 .set(false, 'we are closed')
 
 console.log(mapped);
-/*
+
 // 2. Get method: to read the data from the map:
 
 console.log(mapped.get('name'));
@@ -937,7 +937,7 @@ console.log(mapped.get([1,2])); // undefined: why?
 
 // Reason being that is those arrays point to a different place in memory heap although they identically look the same.
 // What we need to do is to set the array value in a variable and use it in get method as follows:
-*/
+
 
 const arr = [1,2];
 //  We added it and we logged it to the console:
@@ -948,14 +948,14 @@ console.log(mapped.get(arr));
 // cool feature: based on the previous note, we could set object keys, right? Now we can use DOM.
 // DOM objects are also a special type of objects so we can set DOM objects as keys:
 
-/*
+
       mapped
         .set(document.querySelector('h1'), 'heading')
         .set(document.querySelector('h1').innerHTML, 'hey ya')
 
         console.log(mapped);
 
-*/
+
 
 
 // this ain't change any text in the page, cuz set just store the key/value pairs:
@@ -966,4 +966,69 @@ mapped.set(h1, 'hey ya')
 h1.innerHTML = mapped.get(h1)
 
 console.log(mapped);
-// now the text has changed. 
+// now the text has changed.
+*/
+
+// -------------------------------------------------------------------------------------------------------------------------------------------- 125. Map: Iterations
+
+// previously we used set to create key/value pairs. Now we can use array of arrays, the first element of inner array is key and second one is the value
+
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1,'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'correct'],
+  [false, 'Try Aain']
+])
+console.log(question);
+// example
+const correct = 'JavaScript';
+question.get(3) === correct? console.log(question.get(true)) : console.log(question.get((false)));
+
+// convert object to Map:
+
+// As we saw before while calling Object.entries, it used to return a nested array which look as just the same as the new map array that we have passed in line 977.
+// so we can pass in a n object to Object.entries and since it returns an array of arrays
+console.log(Object.entries(openingHours)); // check the output
+
+// Now we can use new Map(), to turn the object to array of arrays so that it will be as same as a Map structure.
+
+const hoursMap = new Map(Object.entries(openingHours))
+console.log(hoursMap);
+
+//  ITERATION ON MAP: since they are iterable we can iterate through them by for loop:
+//  remember we used the Object.entries to make the oject iterable? now that we know the structure of Maps (array of arrays, which within there are key value pairs, then we can without using Object.entries use them). Now in maps we have array of arrays so we can use destructuring and loop through the outer array. in a word each item of the `question` Map contains an array of a key and a value
+
+// Quiz App:
+console.log(question.get('question'));
+
+for (const [key, value] of question){
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+// const answer = Number(prompt('Your answer'));
+const answer = 2
+console.log(answer);
+
+// check the answer 1st approach:
+
+answer === question.get('correct')? console.log(question.get(true))
+  : console.log(question.get(false));
+
+// check the answer 2nd approach:
+console.log(question.get(question.get('correct') === answer));
+
+// Convert Map to Array
+
+console.log([...question]);
+// ways to extract values, keys and entries from the array:
+console.log(question.entries());
+console.log(question.keys());
+console.log(question.values());
+
+// ya can spread'em:
+console.log([...question.entries()]);
+console.log([...question.keys()]);
+console.log([...question.values()]);
