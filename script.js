@@ -970,7 +970,7 @@ console.log(mapped);
 */
 
 // -------------------------------------------------------------------------------------------------------------------------------------------- 125. Map: Iterations
-
+/*
 // previously we used set to create key/value pairs. Now we can use array of arrays, the first element of inner array is key and second one is the value
 
 const question = new Map([
@@ -1032,3 +1032,11 @@ console.log(question.values());
 console.log([...question.entries()]);
 console.log([...question.keys()]);
 console.log([...question.values()]);
+*/
+
+// -------------------------------------------------------------------------------------------------------------------------------------------- 126. Which data structure to use:
+
+//  check the instructions in the local file
+
+
+
