@@ -25,6 +25,7 @@ const openingHours = {
       close: 24,
     },
   }
+console.log(new Map (Object.entries(openingHours)));
 
 // Data needed for first part of the section
 const restaurant = {
@@ -990,7 +991,7 @@ question.get(3) === correct? console.log(question.get(true)) : console.log(quest
 // convert object to Map:
 
 // As we saw before while calling Object.entries, it used to return a nested array which look as just the same as the new map array that we have passed in line 977.
-// so we can pass in a n object to Object.entries and since it returns an array of arrays
+// so we can pass in an object to Object.entries and since it returns an array of arrays
 console.log(Object.entries(openingHours)); // check the output
 
 // Now we can use new Map(), to turn the object to array of arrays so that it will be as same as a Map structure.
@@ -1039,4 +1040,76 @@ console.log([...question.values()]);
 //  check the instructions in the local file
 
 
+// -------------------------------------------------------------------------------------------------------------------------------------------- 127. Challenge-3:
+const gameEvents = new Map([
+  [17,'⚽ GOAL'],
+  [36,'🔁 Substitution'],
+  [47,'⚽ GOAL'],
+  [61,'🔁 Substitution'],
+  [64,'🔶 Yellow card'],
+  [69,'🔴 Red card'],
+  [70,'🔁 Substitution'],
+  [72,'🔁 Substitution'],
+  [76,'⚽ GOAL'],
+  [80,'⚽ GOAL'],
+  [92,'🔶 Yellow card'],
+]);
 
+// const uniqueEvents = new Set([...gameEvents.values()]);
+// console.log(uniqueEvents);
+
+/*
+Let's continue with our football betting app! This time, we have a map called
+'gameEvents' (see below) with a log of the events that happened during the
+game. The values are the events themselves, and the keys are the minutes in which
+each event happened (a football game has 90 minutes plus some extra time).
+Your tasks:
+
+// 1. Create an array 'events' of the different game events that happened (no duplicates)
+/*
+
+
+//////////////////////////////////////////////// First approach
+const events = []
+for(const [key , value] of gameEvents){
+   events.push(value)
+}
+console.log(events);
+
+const eventsUnique = new Set (events);
+console.log(eventsUnique);
+
+/////////////////////////////////////////////// SECOND approach
+
+const events = new Set([...gameEvents.values()])
+console.log(events);
+
+// 2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+// 3. Compute and log the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+
+console.log(gameEvents.size);
+console.log(gameEvents);
+
+let eventsArray = [];
+for (const [key, value] of gameEvents){
+  eventsArray.push(key)
+}
+console.log('eventsArray:',eventsArray);
+
+let sum2 = 17-2
+for(let i = 0; i < eventsArray.length-1; i++){
+  console.log(eventsArray[i+1] - eventsArray[i]);
+  sum2 += (eventsArray[i+1] - eventsArray[i]);
+}
+console.log(`An event happened, on average, every ${sum2/10} minutes`);
+
+// 4. Loop over 'gameEvents' and log each element to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:[FIRST HALF] 17: ⚽ GOAL
+
+for (const [key, value] of gameEvents){
+  (key <= 45)? console.log(`[FIRST HALF] ${key}: ${value}`) : console.log(`[SECOND HALF] ${key}: ${value}`)
+}
+*/
