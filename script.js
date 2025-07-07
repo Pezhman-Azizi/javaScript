@@ -1113,3 +1113,68 @@ for (const [key, value] of gameEvents){
   (key <= 45)? console.log(`[FIRST HALF] ${key}: ${value}`) : console.log(`[SECOND HALF] ${key}: ${value}`)
 }
 */
+// -------------------------------------------------------------------------------------------------------------------------------------------- 128. Working With Strings - Part 1
+
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+
+console.log('B737'[0]);
+console.log(airline.length);
+console.log('B737'.length);
+
+console.log(airline.indexOf('r'));//gives the first occurance
+console.log(airline.lastIndexOf('r'));
+
+// occurence of a whole word at its first occurance and it is case sensitive:
+console.log(airline.indexOf('portugal'));
+
+// slice:
+console.log(airline.slice(4));//here 4 is the index where the slicing starts. => Air Portugal it is called su string and it doesn't change the original string. due to strings being primitive (immutable).
+// In order to use substring in other places we need to save it in a variable at first.
+// All of this means that it returns a new string.
+
+console.log(airline.slice(4, 7));
+//  end value is exclusive. means it stops extracting before reaching to that end index
+// NOTE: the length of the final and start slice is b-a => air length = 7-4
+
+// Extracting the first word without hard coding:
+console.log(airline.slice(0, airline.indexOf(' ')));
+
+// Extracting the last word without hard coding:
+console.log(airline.slice(airline.lastIndexOf(' ')+1));
+
+// we can start from the end by passing negative values to the slice method
+console.log(airline.slice(-2));
+console.log(airline.slice(1, -1)); //first and last letter are removed.
+
+// Example: write a function that receives an airplane seat and returns wether it is the middle seat or not.
+
+// hint: B and E are middle seats
+
+const isMiddleSeat  = function(seat){
+ const s = seat.slice(-1);
+ (s === 'B' || s === 'E') ? console.log('is middle seat') : console.log('in not middle seat');
+ return s;
+}
+
+isMiddleSeat('737B');
+isMiddleSeat('737A');
+isMiddleSeat('737E');
+
+/////////////////////QUESTION
+// string is a primitive but why do we have a method for it?
+// what makes an string to be able to be called by a method?
+// why do they have methods? should methods only be available on objects?
+
+// whenever we call a method on a string, JS behind the sense converts that string primitive to an string object with the same content! And then on that object is where that method is called. ths process called boxing. js takes that string and puts in a box.
+
+console.log(new String('jonas')); // see the log
+console.log(typeof new String('jonas')); // see the log
+
+// now when the operation is done the object comes around as a regular string primitive.
+console.log(typeof new String('jonas').slice(1)); // see the log
+
