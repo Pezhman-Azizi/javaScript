@@ -1181,6 +1181,8 @@ console.log(typeof new String('jonas').slice(1)); // see the log
 
 // -------------------------------------------------------------------------------------------------------------------------------------------- 129. Working With Strings - Part 2
 
+/*
+
 const airline = 'TAP Air Portugal';
 
 console.log(airline.toLowerCase());
@@ -1251,3 +1253,62 @@ const checkBaggage = function(items){
 checkBaggage('i have a laptop, some food and a pocket Knife')
 checkBaggage('socks and camera');
 checkBaggage('gor some snacks and a gun for protection');
+
+*/
+
+// -------------------------------------------------------------------------------------------------------------------------------------------- 130. Working With Strings - Part 3
+
+// split: splits the string and store the results into the elements of an array:
+console.log('a+very+nice+string'.split('+'));
+console.log('Pezhman Azizi'.split(' '));
+
+const [firstName, lastName] = 'Pezhman Azizi'.split(' ')
+console.log(firstName, lastName);
+
+// join:
+ const newName =['Mr.', firstName, lastName.toUpperCase()].join(' ')
+console.log(newName);
+
+const pasenger = 'jessica ann smith davies'
+
+const capitalizeName = function(name){
+  const names = name.split((' '));
+
+  const nameUpper = [];
+  for (const n of names){
+    // nameUpper.push(n[0].toUpperCase() + n.slice(1));
+    nameUpper.push(n.replace(n[0], n[0].toUpperCase()))
+  }
+  console.log(nameUpper); //see the log
+  console.log(nameUpper.join(' ')); //see the log to understand the use of join
+}
+capitalizeName('jessica ann smith davies');
+capitalizeName('jonas schmedtmann');
+
+// Padding: adding number of characters to the start and end of a string until it will get a certain style:
+
+const message = 'Go to gate 23!'
+console.log(message.padStart(20, '+').padEnd(30, '+'));
+console.log('Jonas'.padStart(20, '+').padEnd(30, '+'));
+
+// exercise
+const maskCreditCard = function (number){
+  // const str = String() => One way to turn a number to a string
+  const str = number + ''; // Another way to convert number to string. Reason being is that when using + operator, if one of the values are string, then the other one turns to a string
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+}
+
+console.log(maskCreditCard(12341672));
+console.log(maskCreditCard(1231672354765476));
+console.log(maskCreditCard('937459729409173497967545602956'));
+
+// Repeat:
+const message2 = 'Bad weather  ... All departures delayed ...';
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes waiting on the line. ${'🛩️'.repeat(n)}`);
+}
+planesInLine(5);
+planesInLine(12);
