@@ -331,10 +331,8 @@ console.log(sat, weekdays);
 
 // 2) ------------------------------------------------------- Functions
 
-
 // rest => variable names seperated by commas.
 // spread => values seperated by comma!
-
 
 // -------------------------------------------------------
 
@@ -1257,7 +1255,7 @@ checkBaggage('gor some snacks and a gun for protection');
 */
 
 // -------------------------------------------------------------------------------------------------------------------------------------------- 130. Working With Strings - Part 3
-
+/*
 // split: splits the string and store the results into the elements of an array:
 console.log('a+very+nice+string'.split('+'));
 console.log('Pezhman Azizi'.split(' '));
@@ -1312,3 +1310,98 @@ const planesInLine = function (n) {
 }
 planesInLine(5);
 planesInLine(12);
+*/
+// -------------------------------------------------------------------------------------------------------------------------------------------- 131. Challenge-4
+/*
+
+Coding Challenge #4
+Write a program that receives a list of variable names written in underscore_case
+and convert them to camelCase.
+The input will come from a textarea inserted into the DOM (see code below to
+insert the elements), and conversion will happen when the button is pressed.
+Test data (pasted to textarea, including spaces):
+underscore_case
+first_name
+Some_Variable
+calculate_AGE
+delayed_departure
+Should produce this output (5 separate console.log
+underscoreCase ✅
+firstName ✅✅
+someVariable ✅✅✅
+calculateAge ✅✅✅✅
+delayedDeparture ✅✅✅✅✅
+outputs):
+Hints:
+§ Remember which character defines a new line in the textarea 😉
+§ The solution only needs to work for a variable made out of 2 words, like a_b
+§ Start without worrying about the ✅. Tackle that only after you have the variable
+name conversion working 😉
+§ This challenge is difficult on purpose, so start watching the solution in case
+you're stuck. Then pause and continue!
+Afterwards, test with your own test data!
+GOOD LUCK 😀
+
+
+/////////////////////////////////////////////////////////////----second-approach:
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+const button = document.querySelector('button')
+
+const camelCase = function(inputWords){
+
+  const splittedWords = inputWords.trim().toLowerCase().split('_');
+  const [firstWord, secondWord] = splittedWords
+  // console.log(firstWord + secondWord.replace(secondWord[0], secondWord[0].toUpperCase()));
+  return(firstWord + secondWord.replace(secondWord[0], secondWord[0].toUpperCase()));
+}
+
+const countEmoji = function(number){
+  let count = [];
+  for (let i=0; i<=number; i++){
+   count.push(i);
+  }
+  // console.log('length:', count.length);
+  return count.length
+}
+
+
+button.addEventListener('click', () =>{
+
+  // const inputText = document.querySelector('textarea').value;
+  // console.log(inputText);
+
+  const inputBox = document.querySelector('textarea').value.split('\n')
+  // console.log(inputBox);
+
+  for (const word of inputBox){
+    const numEmoji = countEmoji(`${inputBox.indexOf(word)}`);
+    console.log(camelCase(word) + ' ' +`${'✅'.repeat(numEmoji)}`);
+  }
+})
+
+
+/////////////////////////////////////////////////////////////----second-approach:
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+ document.querySelector('button').addEventListener('click', function() {
+  const text = document.querySelector('textarea').value;
+  const lines = text.trim().toLowerCase().split('\n');
+
+
+  for (const [i, line] of lines.entries()){
+    // console.log(i, line);
+    const words = line.split('_');
+    // console.log(words);
+    const [first, second] = words
+    const camelCase = first + second.replace(second[0], second[0].toUpperCase());
+    // console.log(camelCase);
+    console.log(camelCase.padEnd(20)+`${'✅'.repeat(i+1)}`);
+  }
+
+})
+  
+*/
