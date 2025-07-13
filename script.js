@@ -5,9 +5,6 @@
 // };
 
 
-// Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
@@ -1403,5 +1400,39 @@ document.body.append(document.createElement('button'));
   }
 
 })
-  
+
 */
+
+//------------------------------------------------------------------------------------------------------------132. String Methods Practice
+
+// Data needed for a later exercise
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+const flight = flights.split('+');
+console.log(flight);
+
+for(const flightLog of flight){
+   const [status, departure, arrival, time] = flightLog.split(';');
+  //  console.log(status, departure, arrival, time);
+
+    let result = status.replaceAll('_', ' ') +  ' ' + 'FROM' +  ' '
+      + departure.slice(0, 3).toUpperCase() + ' ' + 'TO' +  ' '
+      + arrival.slice(0, 3).toUpperCase() + ' '
+      + `(${time.replace(':', 'h')})`;
+
+    result = result.padStart(43, '-');
+
+    if(result.includes('Delayed')){
+      console.log(`${'🔴'}${result}`);
+    }else{
+      console.log(result);
+    }
+
+
+}
+
+// _Delayed_Departure;fao93766109;txl2133758440;11:25
+// _Arrival;bru0943384722;fao93766109;11:45
+// _Delayed_Arrival;hel7439299980;fao93766109;12:05
+// _Departure;fao93766109;lis2323639855;12:30'
