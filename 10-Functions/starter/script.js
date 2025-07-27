@@ -46,7 +46,7 @@ createBooking('LH123', undefined , 800) //=> flightNum: 'LH123', numPassengers: 
 */
 
 // ---------------------------------------------------------------------------136. How Passing Arguments Works: Value vs. Reference
-
+/*
 const flight = 'LH234';
 const jonas = {
   name: 'Jonas Schmedtmann',
@@ -162,3 +162,367 @@ console.log('original',jessica2);
 console.log('clone',jessicaClone);
 // that is it for now
 */
+
+// -------------------------------------------------------------------------------------137. First-Class and Higher-Order Functions
+
+// -------------------------------------------------------------------------------------138. Functions Accepting Callback Functions
+/*
+const oneWord = function (str){
+  return str.replace(/ /g, '').toLowerCase();
+}
+
+const upperFirstWord = function(str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+}
+
+// higher-order function
+const transformer = function(str, fn){
+
+  console.log('the original string:',`${str}`);
+  console.log('the output is:',`${fn(str)}`);
+  console.log('the function that did it was:', `${fn.name}`);
+
+}
+
+transformer('JavaScript is the best', upperFirstWord)
+transformer('JavaScript is the best', oneWord)
+
+// Js uses callbacks all the time:
+const high5 = function (){
+  console.log('👋');
+}
+document.body.addEventListener('click', high5);
+
+['Jonas', 'Martha', 'Adam'].forEach(high5);
+
+*/
+// -------------------------------------------------------------------------------------139. Functions Returning Functions
+/*
+
+// const greet = function(greeting){
+//   return function (name){
+//     console.log(`${greeting} ${name}`);
+//   }
+// }
+// const greeterHey =  greet('hey');
+// greet('Hey')('Mike');
+
+// Challenge
+// my approach
+const greeterHey = () => (name) => console.log(`hey ${name}`);
+greeterHey()('Mike')
+
+// jonas approach
+const greetArr = (greeting) => (name) => console.log(`${greeting} ${name}`);
+greetArr('Hi')('Jonas')
+
+*/
+// --------------------------------------------------------------------------------------140. The call and apply Methods
+/*
+const Lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name){
+
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+
+    this.bookings.push({
+      flight: `${this.iataCode}${flightNum}`, name: `${name}`
+    })
+  },
+}
+Lufthansa.book(1234, 'Pezhman')
+Lufthansa.book(5678, 'John')
+console.log(Lufthansa);
+
+
+const euroWings = {
+  airline: 'EuroWings',
+  iataCode: 'EW',
+  bookings: [],
+}
+const book = Lufthansa.book
+// Doesn't work
+// book(23, 'Sara Williams')
+
+// -----------------------------------------------------------Call method
+
+book.call(euroWings, 23, 'Sara Williams')
+console.log(euroWings);
+
+book.call(Lufthansa, 789, 'Andy Johns')
+console.log(Lufthansa);
+
+const swiss={
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: []
+}
+book.call(swiss, 90, 'Conor Adams')
+console.log(swiss);
+
+// -----------------------------------------------------------Apply Method
+
+const flightData = [90, 'Conor Adams'];
+book.apply(swiss, flightData)
+console.log(swiss);
+
+// as you see, apply only receives a list of items (like: 90, 'Conor Adams'),
+// but in modern JS we can actually use spread operators instead and use call method
+book.call(swiss, ...flightData)
+console.log(swiss);
+
+
+// ------------------------------------------------------------------------------------------------------141. Bind method
+// book.call(euroWings, 23, 'Sara Williams')
+
+const bookEW = book.bind(euroWings);
+const bookLH = book.bind(Lufthansa)
+const bookLX = book.bind(swiss)
+
+bookEW(23, 'Steven Williams')
+
+const bookEW23 = book.bind(euroWings, 23);
+bookEW23('Jonas')
+bookEW23('Martha Cooper')
+
+
+// With EventListener:
+
+Lufthansa.planes = 300;
+Lufthansa.buyPlane = function(){
+  console.log(this);
+
+  this.planes++;
+  console.log(this.planes);
+}
+
+
+document.querySelector('.buy').addEventListener('click', Lufthansa.buyPlane.bind(Lufthansa))
+
+// partial application
+
+const addTax = (rate, value) => value + value*rate
+console.log(addTax(.1, 200));
+
+const addVAT = addTax.bind(null, 0.23)
+// above is equal to : addVAT = (value) => value + value * 0.23
+
+console.log(addVAT(400));
+console.log(addVAT(100));
+
+const addTax = function(rate){
+  return function(value){
+      console.log('result1:', `${value + value*rate}`);
+      return ('result:', `${value + value*rate}`)
+  }
+}
+addTax(0.23)(100)
+
+
+
+const addVATArr = (rate) => (value) => console.log('result Arrow:', `${value + value*rate}`);
+addVATArr(0.23)(100)
+
+// -----------------------------------------------------------------------this key word recap on:
+/*
+
+// 1. arrow functions:
+
+console.log(this);
+
+const jonas = {
+
+  firstName : 'Jonas',
+  year: 1991,
+
+  calcAge: function(){
+    // console.log(this);
+    console.log(2037-this.year);
+
+    // Solution1:
+      // const self = this
+      // const isMillenial = function(){
+      //   console.log(self);
+      //   console.log(self.year >= 1981 && self.year <= 1996);
+      //   // console.log(this.year >= 1981 && this.year <= 1996);
+      // }
+
+
+      // Solution2:
+      const isMillenial = ()=>{
+        console.log(this);
+        console.log(this.year >= 1981 && this.year <= 1996);
+
+      }
+      isMillenial();
+  },
+
+  greet(){console.log(`Hey ${this.firstName}`)},
+
+}
+
+// jonas.calcAge()
+jonas.greet()
+
+// 2. when we have a function inside a method:
+
+jonas.calcAge()
+// returns undefined cuz although `isMellenial` is inside a method, it is still a regular function. And as a rule we know that for a regular function call, this key word for a regular function call just has the this keyword set to undefined.
+
+//  there are solution that fixes the issue:
+
+// 1. use self (see line 311)
+// 2. using an arrow function cuz it uses its parent
+
+*/
+////////////////////////////////////////////////////////////////////////////////Coding-Challenge
+/*
+const poll = {
+
+  question: "What is your favourite programming language?",
+  options: ["0: JavaScript", "1: Python", "2: Rust", "3:C++"],
+  // This generates [0, 0, 0, 0]. More in the next section!
+  answers: new Array(4).fill(0),
+
+  registerNewAnswer(){
+    const input = Number(prompt(`What is your favorite programming language? \n 0: JavaScript \n 1: Python \n 2: Rust \n 3: C++`));
+
+    for (const [i] of this.answers.entries()){
+      if(input === i && input <=3 && input>=0){
+        console.log(this.answers[i]+=1);
+        console.log('answers arr:', this.answers);
+      }
+    };
+    // return this.answers;
+
+    const displayResults = (type = 'array') => {
+      if(type === 'array'){
+          console.log(this.answers);
+      }else if(type === 'string'){
+          console.log(...this.answers);
+      }
+    }
+    displayResults('string')
+  },
+};
+
+document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll))
+
+
+const poll = {
+
+  question: "What is your favourite programming language?",
+  options: ["0: JavaScript", "1: Python", "2: Rust", "3:C++"],
+  // This generates [0, 0, 0, 0]. More in the next section!
+  answers: new Array(4).fill(0),
+
+  registerNewAnswer(){
+    const answer = Number(prompt(`${this.question} \n ${this.options.join('\n ')} \n (Write option number)`));
+    console.log(answer);
+    typeof answer === 'number' && answer <= this.options.length && this.answers[answer]++;
+    console.log(this.answers);
+
+    this.displayResults('string') //? why should we use this keyword here?
+  },
+
+  displayResults(type = 'array'){
+    if(type === 'array'){
+      console.log(this.answers);
+    }else{
+      console.log(`poll results are:`, this.answers.join(' '));
+    }
+  }
+};
+document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer.bind(poll))
+
+poll.displayResults.call({answers: [5, 2, 3]})
+poll.displayResults.call({answers: [1, 5, 3, 9, 6, 1]})
+*/
+// -------------------------------------------------------------------------------143. Immediately Invoked Function Expressions (IIFE)
+/*
+(function(){
+  console.log('This will never run again');
+})();
+
+(() => console.log('this will ALSO never run again'))();
+
+// -------------------------------------------------------------------------------144. Closures
+
+const secureBooking = function(){
+  let passengerCount = 0;
+
+  return function(){
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  }
+}
+
+const booker = secureBooking()
+
+booker();
+booker();
+booker();
+*/
+// -------------------------------------------------------------------------------145. More Closure Examples
+/*
+// example 1:
+let f;
+
+const g = function(){
+  const a = 23;
+  f = function(){
+    console.log(a * 2);
+  }
+}
+
+const h = function(){
+  const b = 777;
+  f = function(){
+    console.log(b*2);
+  }
+}
+
+
+g();
+f();
+console.dir(f);
+
+// Re-Assigning f function
+
+h();
+f();
+
+console.dir(f);
+
+// example 2:
+
+const boarderPassengers = function(n, wait){
+  const perGroup = n / 3;
+
+  setTimeout(function(){
+
+    console.log(`we are now boarding all ${n} passengers`);
+    console.log(`there are 3 groups, each with ${perGroup} passengers`);
+
+  }, wait*1000)
+
+  console.log(`Will start boarding in ${wait} seconds`);
+
+}
+
+boarderPassengers(180, 3)
+*/
+// ------------------------------------------------------------------------------ challenge 2:
+
+(function () {
+  const header = document.querySelector('h1');
+    header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function(){
+    header.style.color = 'blue';
+})
+})();
